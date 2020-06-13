@@ -1,0 +1,217 @@
+/*
+    DEMO STYLE
+*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+#sidebar {
+  position: fixed;
+  /* left: -190px; */
+  width: 190px;
+  height: 100%;
+  z-index: 999;
+  color: #212529;
+}
+
+#sidebar.active {
+  left: 0;
+}
+
+/* ---------------------------------------------------
+    NEW STYLE
+----------------------------------------------------- */
+body,
+html, svg {
+  width: 100%;
+  height: 100%;
+  overflow: scroll; 
+}
+html {
+  font-size: 12px;
+}
+button {
+  overflow: hidden;
+}
+img {
+  border: none;
+  outline: none;
+}
+#map {
+  left: 0;
+  top: 0;
+}
+.ignore-mouse-event {
+  pointer-events: none;
+}
+.accept-mouse-event {
+  pointer-events: auto;
+}
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.object-tooltip {
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+}
+.object-tooltip-indicator {
+  stroke: grey;
+}
+.select-tool-rect {
+  fill: none;
+  stroke: grey;
+  stroke-dasharray: 4 4;
+}
+.menu-header {
+  font-size: 1.2rem;
+  color: #455a64;
+}
+.menu .map-icon {
+  background: url(/resources/images/map-fill.svg) no-repeat 0;
+  width: 23px;
+  height: 23px;
+}
+.open-menu-sidebar {
+  color: #455a64;
+}
+.sidebar {
+  height: 100%;
+}
+.sidebar label {
+  font-size: 0.9rem;
+}
+.sidebar .nav-item {
+  width: 100%;
+}
+.sidebar-left {
+  left: 0;
+}
+.sidebar-right {
+  right: 0;
+}
+.cursor-pointer,
+.dropdown-item {
+  cursor: pointer;
+}
+.dropdown-menu {
+  max-height: 480px;
+  overflow-y: auto;
+}
+.sidebar .dropdown-menu {
+  min-width: 227px;
+}
+.colormap-dropdown {
+  background: url(/resources/colormap/colormaps.png);
+  display: inline-block;
+  width: 90px;
+  height: 12px;
+  background-size: 90px 3072px;
+  margin-right: 9px;
+  -ms-interpolation-mode: nearest-neighbor;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+.histogram-bar {
+  opacity: 0.5;
+}
+.space {
+  margin-left: 5px;
+}
+.top-desc {
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: -3px;
+  padding-top: 5px;
+}
+.desc-title {
+  line-height: 0.3;
+  color: #6c757d;
+}
+.desc-sub-title {
+  line-height: 0.2;
+  margin-top: -5px;
+}
+.desc,
+.desc-sub-title {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+.desc {
+  line-height: 0.3;
+  margin-left: 8px;
+}
+.desc-second-line {
+  font-size: 0.9rem;
+  line-height: 0.3;
+  margin-left: 15px;
+  margin-top: -3px;
+  padding-top: 0;
+  color: #6c757d;
+}
+
+.scatter {
+  width: 100%;
+  height: 100%;
+}
+
+.row{
+  height:100%;
+}
+
+rect.selected {
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+.axis .domain {
+  display: none;
+}
+
+.axis .tick text.selected {
+  font-weight: bold;
+  font-size: 1.2em;
+  fill: #47ff63;
+}
+
+.axis .tick line.selected {
+  stroke: #47ff63;  
+}
+
+.tip {
+  position: absolute;
+  font-size: .8em;
+  text-align: center;
+  text-shadow: -1px -1px 1px #ffffff, -1px 0px 1px #ffffff, -1px 1px 1px #ffffff, 0px -1px 1px #ffffff, 0px 1px 1px #ffffff, 1px -1px 1px #ffffff, 1px 0px 1px #ffffff, 1px 1px 1px #ffffff;
+}    
+
+#legend {
+  margin-bottom: 30px;
+  /* height: 30%; */
+}
+
+#legend text {
+  font-size: .8em;
+}
+.pt {
+  stroke:black;
+}
+
+#stats {
+    font-family: sans-serif;
+    fill: #4d4d4d;
+}
+#heatmap {
+  font-size: 12;
+  font-family: "sans-serif";
+}
+#histogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

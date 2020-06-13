@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <!-- Scrollbar Custom CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"
+    />
+
+    <!-- Add icon library -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <title>
+      ccPCA: Supporting Analysis of Dimensionality Reduction Results with
+      Contrastive Learning
+    </title>
+  </head>
+  <body>
+    <div id="sidebarCollapse" class="position-fixed menu p-3 cursor-pointer">
+      <i class="material-icons">menu</i>
+    </div>
+
+    <div class="row">
+      <div class="leftSideBar col-md-2">
+        <nav id="sidebar" class="sidebar-left menu bg-light border-right active">
+          <ul class="nav flex-column">
+            <ul class="nav flex-column">
+              <li class="nav-item pt-2 border-bottom no-select">
+                <div class="nav-link menu-header">
+                  <span class="align-top">DR Result Analysis with ccPCA</span>
+                  <!-- <i id="dismiss" class="material-icons float-right cursor-pointer"
+                    >chevron_left</i
+                  > -->
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link">
+                  <label class="text-secondary">Dataset</label>
+                  <div class="dropdown">
+                    <button
+                      id="nav-dataset-dropdown"
+                      class="btn btn-outline-secondary btn-block dropdown-toggle change-this"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Wine
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="nav-dataset-dropdown"
+                    >
+                      <button class="dropdown-item" type="button" onclick="initCharts('./data/wine.csv','wine')">
+                        Wine</button
+                      ><button class="dropdown-item" type="button" onclick="initCharts('./data/nutrients.csv','nutrients')">
+                        Nutrients</button>
+                        <button class="dropdown-item" type="button" onclick="initCharts('./data/crime.csv','crime')">
+                        Communities and Crime</button
+                      ><button class="dropdown-item" type="button" onclick="initCharts('./data/tennis_women.csv','tennis_women')">
+                        Tennis
+                      </button>
+                      <button class="dropdown-item" type="button" onclick="initCharts('./backend/sample_data/mnist.csv','mnist')">
+                        MNIST
+                      </button>
+                      <button class="dropdown-item" type="button" onclick="initCharts('./backend/sample_data/fashion_mnist.csv','fashion_mnist')">
+                        FASHION
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link">
+                  <label class="text-secondary">Projection</label>
+                  <div class="dropdown">
+                    <button
+                      id="nav-proj-dropdown"
+                      class="btn btn-outline-secondary btn-block dropdown-toggle"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      t-SNE
+                    </button>
+                    <div
+                      class="dropdown-menu no-select"
+                      aria-labelledby="nav-proj-dropdown"
+                    >
+                      <button class="dropdown-item no-select " type="button">
+                        t-SNE
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link">
+                  <label class="text-secondary">Clustering</label>
+                  <div class="dropdown">
+                    <button
+                      id="nav-proj-dropdown"
+                      class="btn btn-outline-secondary btn-block dropdown-toggle"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      DBSCAN
+                    </button>
+                    <div
+                      class="dropdown-menu no-select"
+                      aria-labelledby="nav-proj-dropdown"
+                    >
+                      <button class="dropdown-item no-select " type="button">
+                        DBSCAN
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link">
+                  <div class="form-row">
+                    <div class="col">
+                      <div class="form-group mb-0">
+                        <label class="text-secondary">Min Pt Size</label
+                        ><input
+                          type="number"
+                          id="min_size_change"
+                          class="form-control"
+                          min="1"
+                          max="100"
+                        />
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group mb-0">
+                        <label class="text-secondary">Max Pt Size</label
+                        ><input
+                          type="number"
+                          class="form-control"
+                          min="1"
+                          max="100"
+                        />
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group mb-0">
+                        <label class="text-secondary">Size Power</label
+                        ><input
+                          type="number"
+                          class="form-control"
+                          min="1"
+                          max="1000"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item top-desc border-top">
+                <div class="nav-link">
+                  <p class="desc-title">
+                    Interactions<span class="space"></span
+                    ><a
+                      href="https://youtu.be/_u49Dx0SnhI?rel=0&amp;amp;showinfo=0"
+                      target="_blank"
+                      >[watch demo]</a
+                    >
+                  </p>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link">
+                  <p class="desc-sub-title">DR View</p>
+                  <p class="desc">zoom: scroll</p>
+                  <p class="desc">pan: drag</p>
+                  <p class="desc">select points: shift + drag</p>
+                  <p class="desc">add points: shift + drag</p>
+                  <p class="desc">unselect points: 1) press r 2) shift + drag</p>
+                  <p class="desc">clear selection: press c</p>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link">
+                  <p class="desc-sub-title">Feature Contributions View</p>
+                  <p class="desc">hover cell: pop up histogram</p>
+                  <p class="desc">hover feature name:</p>
+                  <p class="desc-second-line">show values as point sizes</p>
+                  <p class="desc">hover cluster label:</p>
+                  <p class="desc-second-line">pop up histogram summaries</p>
+                  <p class="desc">click cell or cluster label:</p>
+                  <p class="desc-second-line">keep pop-up histograms</p>
+                  <p class="desc">drag histogram:</p>
+                  <p class="desc-second-line">move histogram position</p>
+                  <p class="desc">double click histogram:</p>
+                  <p class="desc-second-line">hide histogram</p>
+                  <p class="desc">double click aggregated cell:</p>
+                  <p class="desc-second-line">show all histograms</p>
+                </div>
+              </li>
+            </ul>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="scatterPlot col-md-7" style="padding: 0px; margin: 0px;">
+        <div style="height: 60%;">
+          <svg class="scatter"></svg>
+        </div>
+        <div class="row" style="height: 40%">
+          <div class="col-4">
+              <div id="legend"></div>
+              <div id="grid"></div>
+          </div>
+          <div class="col-4">
+              <div id="chart"></div>
+              <!-- <div id="my_dataviz"></div> -->
+            </div>
+          <div class="col-4">
+              <div id="histogram"></div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="col-md-3">
+          <nav
+          class="sidebar sidebar-right menu bg-light position-fixed border-left"
+          
+        >
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <div class="nav-link">
+                <label class="text-secondary">Feature Contributions</label>
+                <div class="row mb-2">
+                  <div class="col btn-toolbar">
+                    <button type="button" class="btn btn-outline-secondary mr-2" onclick="selectedPoints()">
+                      Add Cluster</button
+                    ><button type="button" class="btn btn-outline-secondary mr-2">
+                      Hide Histogram Indicator
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div id="heatmap"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <img src="./images/WhatsApp Image 2019-12-04 at 5.23.11 PM.jpeg" alt="Legend" style="width: 150px; height: 50px;"></img>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    
+    <!-- d3 scripts -->
+    <script src="./scripts/d3/d3.v4.js"></script>
+
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script><script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-format.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale.v3.min.js"></script>
+    <script src="https://unpkg.com/jeezy@1.12.11/lib/jeezy.min.js"></script>
+    <script src="https://unpkg.com/data2grid@1.0.0/build/data2grid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.5/chroma.min.js"></script>
+    <script src="./scripts/d3/d3.scale.chromatic.js"></script>
+    <script src="./scripts/d3/d3.topojson.js"></script>
+    <script src="./scripts/d3/d3.queue.js"></script>
+    <script src="./scripts/scatterPlot.js"></script>
+    <script src="./scripts/heatmap.js"></script>
+    <script src="./scripts/featureMatrix.js"></script>
+    <script src="./scripts/wordCloudLib.js"></script>
+    <script src="./scripts/wordCloud.js"></script>
+    <script src="./scripts/histogram.js"></script>
+    <script src="./scripts/index.js"></script>
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#sidebar").mCustomScrollbar({
+          theme: "minimal"
+        });
+
+        $(function(){
+          $(".dropdown-menu button").click(function(){
+          $(".change-this:first-child").text($(this).text());
+          $(".change-this:first-child").val($(this).text());
+        });
+
+});
+
+        $("#dismiss, .overlay").on("click", function() {
+          $("#sidebar").removeClass("active");
+          $(".overlay").removeClass("active");
+        });
+
+        $("#sidebarCollapse").on("click", function() {
+          $("#sidebar").addClass("active");
+          $(".overlay").addClass("active");
+          $(".collapse.in").toggleClass("in");
+          $("a[aria-expanded=true]").attr("aria-expanded", "false");
+        });
+      });
+    </script>
+  </body>
+</html>
